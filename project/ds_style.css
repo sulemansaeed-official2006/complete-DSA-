@@ -1,0 +1,193 @@
+/* MINIMALIST LIGT THEME DASHBOARD & SIMULATIONS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+    /* Theme Variables */
+    --primary: #2e8b57;
+    /* SeaGreen */
+    --secondary: #3cb371;
+    /* Medium SeaGreen */
+    --accent: #20b2aa;
+    /* LightSeaGreen */
+
+    --bg-light: #f0f2f5;
+    /* Grey Touch */
+    --bg-card: #ffffff;
+    --bg-panel: #e9ecef;
+
+    --text-main: #333333;
+    --text-muted: #666666;
+
+    --border: #2e8b57;
+    --border-light: #e0e0e0;
+
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+    /* BACK WARD COMPATIBILITY */
+    --primary-color: var(--primary);
+    --secondary-color: var(--secondary);
+    --accent-color: var(--accent);
+    --text-primary: var(--text-main);
+    --text-secondary: var(--text-muted);
+    --card-bg: var(--bg-card);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+.header h1 {
+    color: var(--primary);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Cards */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(46, 139, 87, 0.05);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(46, 139, 87, 0.15);
+}
+
+.card h2 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Visualization Containers */
+.queue-container,
+.visualization-box {
+    background: var(--bg-panel);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Simulation Elements */
+.queue-element,
+.bar,
+.node {
+    background: var(--bg-light);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    /* Rounded corners back */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.queue-element:hover,
+.node:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.highlight {
+    background-color: var(--accent) !important;
+    color: white !important;
+    border-color: var(--accent) !important;
+}
+
+/* Inputs & Buttons */
+.value-input {
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    outline: none;
+}
+
+.value-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.1);
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--secondary);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Theory Sections */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.pros,
+.cons {
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: var(--bg-panel);
+}
+
+.pros h3 {
+    color: var(--primary);
+}
+
+.cons h3 {
+    color: #dc3545;
+}
+
+/* Code Blocks */
+.code-content {
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.code-content pre {
+    color: #333;
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Glowing Sphere</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .sphere-container {
+            perspective: 1000px;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .sphere {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin 8s linear infinite;
+            transition: transform 0.1s ease-out;
+        }
+
+        .sphere:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        .sphere .circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #00ffff, #0099cc, #003366);
+            box-shadow: 
+                0 0 30px #00ffff,
+                0 0 60px #00ffff,
+                0 0 90px rgba(0, 255, 255, 0.5),
+                inset 0 0 40px rgba(0, 255, 255, 0.3);
+            opacity: 0.9;
+        }
+
+        .circle:nth-child(1) {
+            transform: rotateY(0deg);
+        }
+
+        .circle:nth-child(2) {
+            transform: rotateY(60deg);
+        }
+
+        .circle:nth-child(3) {
+            transform: rotateY(120deg);
+        }
+
+        .circle:nth-child(4) {
+            transform: rotateY(180deg);
+        }
+
+        .circle:nth-child(5) {
+            transform: rotateY(240deg);
+        }
+
+        .circle:nth-child(6) {
+            transform: rotateY(300deg);
+        }
+
+        .circle:nth-child(7) {
+            transform: rotateX(90deg);
+        }
+
+        .circle:nth-child(8) {
+            transform: rotateX(270deg);
+        }
+
+        .circle:nth-child(9) {
+            transform: rotateX(60deg);
+        }
+
+        .circle:nth-child(10) {
+            transform: rotateX(120deg);
+        }
+
+        .circle:nth-child(11) {
+            transform: rotateX(240deg);
+        }
+
+        .circle:nth-child(12) {
+            transform: rotateX(300deg);
+        }
+
+        .glow {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #00ffff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px rgba(0, 255, 255, 0.5);
+            font-size: 2rem;
+        }
+
+        p {
+            color: #88ccff;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div class="container">
+        <h1>3D Glowing Sphere</h1>
+        <div class="sphere-container" id="sphereContainer">
+            <div class="sphere" id="sphere">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+        <p>Move your mouse to control rotation | Hover to pause</p>
+    </div>
+
+    <script>
+        const sphere = document.getElementById('sphere');
+        const container = document.getElementById('sphereContainer');
+        let isAnimating = true;
+        let currentRotationX = 0;
+        let currentRotationY = 0;
+        let targetRotationX = 0;
+        let targetRotationY = 0;
+
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - centerY;
+
+            targetRotationY = deltaX * 0.5;
+            targetRotationX = -deltaY * 0.5;
+
+            isAnimating = false;
+            sphere.style.animation = 'none';
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isAnimating = true;
+            sphere.style.animation = 'spin 8s linear infinite';
+        });
+
+        function animate() {
+            if (!isAnimating) {
+                currentRotationX += (targetRotationX - currentRotationX) * 0.1;
+                currentRotationY += (targetRotationY - currentRotationY) * 0.1;
+
+                sphere.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Add click effect
+        container.addEventListener('click', () => {
+            const circles = document.querySelectorAll('.circle');
+            circles.forEach((circle, index) => {
+                circle.style.transition = 'all 0.3s ease';
+                circle.style.boxShadow = `
+                    0 0 40px #00ffff,
+                    0 0 80px #00ffff,
+                    0 0 120px rgba(0, 255, 255, 0.7),
+                    inset 0 0 60px rgba(0, 255, 255, 0.5)
+                `;
+                
+                setTimeout(() => {
+                    circle.style.boxShadow = '';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
